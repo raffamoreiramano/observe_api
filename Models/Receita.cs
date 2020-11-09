@@ -29,6 +29,9 @@ namespace Observe.Models
 
     public class Remedio
     {
+        [Required]
+        public string Nome { get; set; }
+
         private string _Medida;
 
         [Required]
