@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Observe.Migrations
 {
-    public partial class CriarBanco : Migration
+    public partial class CorrigindoFKs : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,7 +49,7 @@ namespace Observe.Migrations
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UID = table.Column<int>(nullable: false),
-                    Idade = table.Column<int>(nullable: false),
+                    Nascimento = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Doencas = table.Column<string>(type: "NVARCHAR(255)", nullable: true),
                     Alergias = table.Column<string>(type: "NVARCHAR(255)", nullable: true),
                     Remedios = table.Column<string>(type: "NVARCHAR(255)", nullable: true)
@@ -94,12 +95,14 @@ namespace Observe.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Medico_UID",
                 table: "Medico",
-                column: "UID");
+                column: "UID",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Paciente_UID",
                 table: "Paciente",
-                column: "UID");
+                column: "UID",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Receita_MID",
@@ -110,6 +113,12 @@ namespace Observe.Migrations
                 name: "IX_Receita_PID",
                 table: "Receita",
                 column: "PID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Usuario_CID",
+                table: "Usuario",
+                column: "CID",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

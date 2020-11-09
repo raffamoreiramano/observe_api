@@ -49,7 +49,7 @@ namespace Observe.Data
             modelBuilder.Entity<Receita>().Property(p => p.Remedios)
                 .HasConversion(
                     lista => JsonConvert.SerializeObject(lista),
-                    lista => JsonConvert.DeserializeObject<List<string>>(lista));
+                    lista => JsonConvert.DeserializeObject<List<Remedio>>(lista));
 
             // adicionando comparadores às listas
             modelBuilder.Entity<Paciente>().Property(p => p.Doencas)
@@ -68,10 +68,10 @@ namespace Observe.Data
                     lista => lista == null ? 0 : JsonConvert.SerializeObject(lista).GetHashCode(),
                     lista => JsonConvert.DeserializeObject<List<string>>(JsonConvert.SerializeObject(lista))));
             modelBuilder.Entity<Receita>().Property(r => r.Remedios)
-                .Metadata.SetValueComparer(new ValueComparer<List<string>>(
+                .Metadata.SetValueComparer(new ValueComparer<List<Remedio>>(
                     (l, r) => JsonConvert.SerializeObject(l) == JsonConvert.SerializeObject(r),
                     lista => lista == null ? 0 : JsonConvert.SerializeObject(lista).GetHashCode(),
-                    lista => JsonConvert.DeserializeObject<List<string>>(JsonConvert.SerializeObject(lista))));
+                    lista => JsonConvert.DeserializeObject<List<Remedio>>(JsonConvert.SerializeObject(lista))));
 
             // mudando tipo datetime para datetime2
             modelBuilder.Entity<Paciente>().Property(p => p.Nascimento).HasColumnType("datetime2");

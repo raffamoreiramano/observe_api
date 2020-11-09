@@ -27,5 +27,7 @@ namespace Observe.Models
 
         [Column(TypeName = "NVARCHAR(255)")]
         public List<string> Remedios { get; set; }
+
+        public ICollection<Receita> Receitas { get; set; }
     }
 }

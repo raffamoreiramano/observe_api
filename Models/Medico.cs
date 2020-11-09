@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Observe.Models
@@ -17,5 +18,7 @@ namespace Observe.Models
         [Required]
         [StringLength(13, ErrorMessage = "No máximo 13 caracteres.")]
         public string CRM { get; set; }
+
+        public ICollection<Receita> Receitas { get; set; }
     }
 }

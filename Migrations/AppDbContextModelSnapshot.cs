@@ -150,13 +150,13 @@ namespace Observe.Migrations
             modelBuilder.Entity("Observe.Models.Receita", b =>
                 {
                     b.HasOne("Observe.Models.Medico", "Medico")
-                        .WithMany()
+                        .WithMany("Receitas")
                         .HasForeignKey("MID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Observe.Models.Paciente", "Paciente")
-                        .WithMany()
+                        .WithMany("Receitas")
                         .HasForeignKey("PID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();

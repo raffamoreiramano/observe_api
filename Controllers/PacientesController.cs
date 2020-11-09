@@ -75,11 +75,17 @@ namespace Observe.Controllers
             return receita;
         }
 
-
         // PUT: api/Pacientes/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPaciente(int id, Paciente paciente)
         {
+            var usuario = await _context.Pacientes.Where(p => p.UID == paciente.UID).SingleOrDefaultAsync();
+
+            if (usuario != null)
+            {
+                return Conflict(new { title = "Conflict", message = $"A record with the same UID already exists." });
+            }
+
             if (id != paciente.ID)
             {
                 return BadRequest();
@@ -110,7 +116,7 @@ namespace Observe.Controllers
         [HttpPost]
         public async Task<ActionResult<Paciente>> PostPaciente(Paciente paciente)
         {
-            var usuario = await _context.Medicos.Where(m => m.UID == paciente.UID).SingleOrDefaultAsync();
+            var usuario = await _context.Pacientes.Where(p => p.UID == paciente.UID).SingleOrDefaultAsync();
 
             if (usuario != null)
             {
