@@ -76,6 +76,13 @@ namespace Observe.Controllers
         [HttpPost]
         public async Task<ActionResult<Usuario>> PostUsuario(Usuario usuario)
         {
+            var existente = await _context.Usuarios.Where(e => e.CID == usuario.CID).SingleOrDefaultAsync();
+
+            if (existente != null)
+            {
+                return Conflict(new { title = "Conflict", message = $"A record with the same CID already exists." });
+            }
+
             _context.Usuarios.Add(usuario);
             await _context.SaveChangesAsync();
 

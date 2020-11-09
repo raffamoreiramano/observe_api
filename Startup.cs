@@ -15,6 +15,11 @@ namespace Observe
 {
     public class Startup
     {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -22,7 +27,7 @@ namespace Observe
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>(options => options
-            .UseSqlServer("Data Source=DESKTOP-JSDKA1F\\SQLEXPRESS;Initial Catalog=Observe;Integrated Security=True"));
+            .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllers();
         }
@@ -40,7 +45,7 @@ namespace Observe
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
