@@ -4,6 +4,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Observe.Data
 {
@@ -49,6 +50,28 @@ namespace Observe.Data
                 .HasConversion(
                     lista => JsonConvert.SerializeObject(lista),
                     lista => JsonConvert.DeserializeObject<List<string>>(lista));
+
+            // adicionando comparadores às listas
+            modelBuilder.Entity<Paciente>().Property(p => p.Doencas)
+                .Metadata.SetValueComparer(new ValueComparer<List<string>>(
+                    (l, r) => JsonConvert.SerializeObject(l) == JsonConvert.SerializeObject(r),
+                    lista => lista == null ? 0 : JsonConvert.SerializeObject(lista).GetHashCode(),
+                    lista => JsonConvert.DeserializeObject<List<string>>(JsonConvert.SerializeObject(lista))));
+            modelBuilder.Entity<Paciente>().Property(p => p.Alergias)
+                .Metadata.SetValueComparer(new ValueComparer<List<string>>(
+                    (l, r) => JsonConvert.SerializeObject(l) == JsonConvert.SerializeObject(r),
+                    lista => lista == null ? 0 : JsonConvert.SerializeObject(lista).GetHashCode(),
+                    lista => JsonConvert.DeserializeObject<List<string>>(JsonConvert.SerializeObject(lista))));
+            modelBuilder.Entity<Paciente>().Property(p => p.Remedios)
+                .Metadata.SetValueComparer(new ValueComparer<List<string>>(
+                    (l, r) => JsonConvert.SerializeObject(l) == JsonConvert.SerializeObject(r),
+                    lista => lista == null ? 0 : JsonConvert.SerializeObject(lista).GetHashCode(),
+                    lista => JsonConvert.DeserializeObject<List<string>>(JsonConvert.SerializeObject(lista))));
+            modelBuilder.Entity<Receita>().Property(r => r.Remedios)
+                .Metadata.SetValueComparer(new ValueComparer<List<string>>(
+                    (l, r) => JsonConvert.SerializeObject(l) == JsonConvert.SerializeObject(r),
+                    lista => lista == null ? 0 : JsonConvert.SerializeObject(lista).GetHashCode(),
+                    lista => JsonConvert.DeserializeObject<List<string>>(JsonConvert.SerializeObject(lista))));
 
             // mudando tipo datetime para datetime2
             modelBuilder.Entity<Paciente>().Property(p => p.Nascimento).HasColumnType("datetime2");
