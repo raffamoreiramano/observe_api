@@ -28,13 +28,14 @@ namespace Observe.Controllers
             return await _context.Pacientes.Include(p => p.Usuario).ToListAsync();
         }
 
-        // GET: api/Pacientes/5
-        [HttpGet("{id}")]
+        // GET: api/Pacientes/id/5
+        [HttpGet("id/{id}")]
         public async Task<ActionResult<Paciente>> GetPaciente(int id)
         {
             var paciente = await 
                 _context
                 .Pacientes
+                .AsQueryable()
                 .Where(p => p.ID == id)
                 .Include(p => p.Usuario)
                 .SingleOrDefaultAsync();
@@ -47,20 +48,65 @@ namespace Observe.Controllers
             return paciente;
         }
 
-        // GET: api/Pacientes/5/Receitas
+        // GET: api/Pacientes/uid/5
+        [HttpGet("uid/{uid}")]
+        public async Task<ActionResult<Paciente>> GetPacienteByUid(int uid)
+        {
+            var paciente = await 
+                _context
+                .Pacientes
+                .AsQueryable()
+                .Where(p => p.UID == uid)
+                .Include(p => p.Usuario)
+                .SingleOrDefaultAsync();
+
+            if (paciente == null)
+            {
+                return NotFound();
+            }
+
+            return paciente;
+        }
+
+        // GET: api/Pacientes/nome/Usuario
+        [HttpGet("nome/{nome}")]
+        public async Task<ActionResult<IEnumerable<Paciente>>> GetPacientesByNome(string nome)
+        {
+            var pacientes = await 
+                _context
+                .Pacientes
+                .AsQueryable()
+                .Include(p => p.Usuario)
+                .Where(p =>
+                    EF.Functions.Like(p.Usuario.Nome, $"%{nome}%")
+                    ||
+                    EF.Functions.Like(p.Usuario.Sobrenome, $"%{nome}%")
+                )
+                .ToListAsync();
+
+            if (pacientes == null)
+            {
+                return NotFound();
+            }
+
+            return pacientes;
+        }
+
+        // GET: api/Pacientes/id/5/Receitas
         [HttpGet]
-        [Route("{id}/Receitas")]
+        [Route("id/{id}/Receitas")]
         public async Task<ActionResult<IEnumerable<Receita>>> GetReceitas(int id)
         {
             return await _context.Receitas.Where(r => r.PID == id).ToListAsync();
         }
 
-        // GET: api/Pacientes/5/Receitas/5
+        // GET: api/Pacientes/id/5/Receitas/id/5
         [HttpGet]
-        [Route("{pid}/Receitas/{rid}")]
+        [Route("id/{pid}/Receitas/id/{rid}")]
         public async Task<ActionResult<Receita>> GetReceita(int pid, int rid)
         {
-            var receita = await _context.Receitas.Where(r => r.PID == pid && r.ID == rid)
+            var receita = await _context.Receitas.AsQueryable()
+                .Where(r => r.PID == pid && r.ID == rid)
                 .Include(r => r.Medico)
                     .ThenInclude(m => m.Usuario)
                 .Include(r => r.Paciente)
@@ -75,11 +121,11 @@ namespace Observe.Controllers
             return receita;
         }
 
-        // PUT: api/Pacientes/5
-        [HttpPut("{id}")]
+        // PUT: api/Pacientes/id/5
+        [HttpPut("id/{id}")]
         public async Task<IActionResult> PutPaciente(int id, Paciente paciente)
         {
-            var usuario = await _context.Pacientes.Where(p => p.UID == paciente.UID).SingleOrDefaultAsync();
+            var usuario = await _context.Pacientes.AsQueryable().Where(p => p.UID == paciente.UID).SingleOrDefaultAsync();
 
             if (usuario != null)
             {
@@ -116,7 +162,7 @@ namespace Observe.Controllers
         [HttpPost]
         public async Task<ActionResult<Paciente>> PostPaciente(Paciente paciente)
         {
-            var usuario = await _context.Pacientes.Where(p => p.UID == paciente.UID).SingleOrDefaultAsync();
+            var usuario = await _context.Pacientes.AsQueryable().Where(p => p.UID == paciente.UID).SingleOrDefaultAsync();
 
             if (usuario != null)
             {
@@ -130,7 +176,7 @@ namespace Observe.Controllers
         }
 
         // DELETE: api/Pacientes/5
-        [HttpDelete("{id}")]
+        [HttpDelete("id/{id}")]
         public async Task<ActionResult<Paciente>> DeletePaciente(int id)
         {
             var paciente = await _context.Pacientes.FindAsync(id);

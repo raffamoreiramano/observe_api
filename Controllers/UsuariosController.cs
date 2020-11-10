@@ -46,7 +46,7 @@ namespace Observe.Controllers
         [HttpGet("cid/{cid}")]
         public async Task<ActionResult<Usuario>> GetUsuarioByCid(string cid)
         {
-            var usuario = await _context.Usuarios.Where(u => u.CID == cid).SingleOrDefaultAsync();
+            var usuario = await _context.Usuarios.AsQueryable().Where(u => u.CID == cid).SingleOrDefaultAsync();
 
             if (usuario == null)
             {
@@ -58,13 +58,13 @@ namespace Observe.Controllers
 
         // GET: api/Usuarios/nome/Usuario
         [HttpGet("nome/{nome}")]
-        public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuarioByNome(string nome)
+        public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuariosByNome(string nome)
         {
-            return await _context.Usuarios
+            return await _context.Usuarios.AsQueryable()
                 .Where(u => 
-                    EF.Functions.Like(u.Nome, String.Format("%{0}%", nome)) 
+                    EF.Functions.Like(u.Nome, $"%{nome}%") 
                     || 
-                    EF.Functions.Like(u.Sobrenome, String.Format("%{0}%", nome))
+                    EF.Functions.Like(u.Sobrenome, $"%{nome}%")
                 )
                 .ToListAsync();
         }
@@ -103,7 +103,7 @@ namespace Observe.Controllers
         [HttpPost]
         public async Task<ActionResult<Usuario>> PostUsuario(Usuario usuario)
         {
-            var existente = await _context.Usuarios.Where(e => e.CID == usuario.CID).SingleOrDefaultAsync();
+            var existente = await _context.Usuarios.AsQueryable().Where(e => e.CID == usuario.CID).SingleOrDefaultAsync();
 
             if (existente != null)
             {

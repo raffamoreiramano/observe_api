@@ -28,8 +28,8 @@ namespace Observe.Controllers
             return await _context.Receitas.ToListAsync();
         }
 
-        // GET: api/Receitas/5
-        [HttpGet("{id}")]
+        // GET: api/Receitas/id/5
+        [HttpGet("id/{id}")]
         public async Task<ActionResult<Receita>> GetReceita(int id)
         {
             var receita = await _context.Receitas.FindAsync(id);
@@ -42,11 +42,12 @@ namespace Observe.Controllers
             return receita;
         }
         
-        // GET: api/Receitas/5
-        [HttpGet("{id}/detalhes")]
+        // GET: api/Receitas/id/5
+        [HttpGet("id/{id}/detalhes")]
         public async Task<ActionResult<Receita>> GetDetalhesReceita(int id)
         {
-            var receita = await _context.Receitas.Where(r => r.ID == id)
+            var receita = await _context.Receitas.AsQueryable()
+                .Where(r => r.ID == id)
                 .Include(r => r.Medico)
                     .ThenInclude(m => m.Usuario)
                 .Include(r => r.Paciente)
@@ -61,8 +62,8 @@ namespace Observe.Controllers
             return receita;
         }
 
-        // PUT: api/Receitas/5
-        [HttpPut("{id}")]
+        // PUT: api/Receitas/id/5
+        [HttpPut("id/{id}")]
         public async Task<IActionResult> PutReceita(int id, Receita receita)
         {
             if (id != receita.ID)
@@ -101,8 +102,8 @@ namespace Observe.Controllers
             return CreatedAtAction("GetReceita", new { id = receita.ID }, receita);
         }
 
-        // DELETE: api/Receitas/5
-        [HttpDelete("{id}")]
+        // DELETE: api/Receitas/id/5
+        [HttpDelete("id/{id}")]
         public async Task<ActionResult<Receita>> DeleteReceita(int id)
         {
             var receita = await _context.Receitas.FindAsync(id);

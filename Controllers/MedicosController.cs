@@ -28,8 +28,8 @@ namespace Observe.Controllers
             return await _context.Medicos.Include(m => m.Usuario).ToListAsync();
         }
 
-        // GET: api/Medicos/5
-        [HttpGet("{id}")]
+        // GET: api/Medicos/id/5
+        [HttpGet("id/{id}")]
         public async Task<ActionResult<Medico>> GetMedico(int id)
         {
             var medico = await _context.Medicos.AsQueryable().Where(m => m.ID == id).Include(m => m.Usuario).SingleOrDefaultAsync();
@@ -42,20 +42,54 @@ namespace Observe.Controllers
             return medico;
         }
 
-        // GET: api/Medicos/5/Receitas
-        [HttpGet]
-        [Route("{id}/Receitas")]
-        public async Task<ActionResult<IEnumerable<Receita>>> GetReceitas(int id)
+        // GET: api/Medicos/uid/5
+        [HttpGet("uid/{uid}")]
+        public async Task<ActionResult<Medico>> GetMedicoByUid(int uid)
         {
-            return await _context.Receitas.Where(r => r.MID == id).ToListAsync();
+            var medico = await _context.Medicos.AsQueryable().Where(m => m.UID == uid).Include(m => m.Usuario).SingleOrDefaultAsync();
+        
+            if (medico == null)
+            {
+                return NotFound();
+            }
+
+            return medico;
         }
 
-        // GET: api/Medicos/5/Receitas/5
+        // GET: api/Medicos/nome/Usuario
+        [HttpGet("nome/{nome}")]
+        public async Task<ActionResult<IEnumerable<Medico>>> GetMedicosByNome(string nome)
+        {
+            var medicos = await _context.Medicos.AsQueryable().Include(m => m.Usuario)
+                .Where(m =>
+                    EF.Functions.Like(m.Usuario.Nome, $"%{nome}%")
+                    ||
+                    EF.Functions.Like(m.Usuario.Sobrenome, $"%{nome}%")
+                )
+                .ToListAsync();
+
+            if (medicos == null)
+            {
+                return NotFound();
+            }
+
+            return medicos;
+        }
+
+        // GET: api/Medicos/id/5/Receitas
         [HttpGet]
-        [Route("{mid}/Receitas/{rid}")]
+        [Route("id/{id}/Receitas")]
+        public async Task<ActionResult<IEnumerable<Receita>>> GetReceitas(int id)
+        {
+            return await _context.Receitas.AsQueryable().Where(r => r.MID == id).ToListAsync();
+        }
+
+        // GET: api/Medicos/id/5/Receitas/id/5
+        [HttpGet]
+        [Route("id/{mid}/Receitas/id/{rid}")]
         public async Task<ActionResult<Receita>> GetReceita(int mid, int rid)
         {
-            var receita = await _context.Receitas.Where(r => r.MID == mid && r.ID == rid)
+            var receita = await _context.Receitas.AsQueryable().Where(r => r.MID == mid && r.ID == rid)
                 .Include(r => r.Medico)
                     .ThenInclude(m => m.Usuario)
                 .Include(r => r.Paciente)
@@ -71,10 +105,10 @@ namespace Observe.Controllers
         }
 
         // PUT: api/Medicos/5
-        [HttpPut("{id}")]
+        [HttpPut("id/{id}")]
         public async Task<IActionResult> PutMedico(int id, Medico medico)
         {
-            var usuario = await _context.Medicos.Where(m => m.UID == medico.UID).SingleOrDefaultAsync();
+            var usuario = await _context.Medicos.AsQueryable().Where(m => m.UID == medico.UID).SingleOrDefaultAsync();
 
             if (usuario != null)
             {
@@ -111,7 +145,7 @@ namespace Observe.Controllers
         [HttpPost]
         public async Task<ActionResult<Medico>> PostMedico(Medico medico)
         {
-            var usuario = await _context.Medicos.Where(m => m.UID == medico.UID).SingleOrDefaultAsync();
+            var usuario = await _context.Medicos.AsQueryable().Where(m => m.UID == medico.UID).SingleOrDefaultAsync();
 
             if (usuario != null)
             {
@@ -127,7 +161,7 @@ namespace Observe.Controllers
         
 
         // DELETE: api/Medicos/5
-        [HttpDelete("{id}")]
+        [HttpDelete("id/{id}")]
         public async Task<ActionResult<Medico>> DeleteMedico(int id)
         {
             var medico = await _context.Medicos.FindAsync(id);
