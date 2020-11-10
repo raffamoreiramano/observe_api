@@ -28,8 +28,8 @@ namespace Observe.Controllers
             return await _context.Usuarios.ToListAsync();
         }
 
-        // GET: api/Usuarios/5
-        [HttpGet("{id}")]
+        // GET: api/Usuarios/id/5
+        [HttpGet("id/{id}")]
         public async Task<ActionResult<Usuario>> GetUsuario(int id)
         {
             var usuario = await _context.Usuarios.FindAsync(id);
@@ -42,8 +42,35 @@ namespace Observe.Controllers
             return usuario;
         }
 
-        // PUT: api/Usuarios/5
-        [HttpPut("{id}")]
+        // GET: api/Usuarios/cid/xyz5
+        [HttpGet("cid/{cid}")]
+        public async Task<ActionResult<Usuario>> GetUsuarioByCid(string cid)
+        {
+            var usuario = await _context.Usuarios.Where(u => u.CID == cid).SingleOrDefaultAsync();
+
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+
+            return usuario;
+        }
+
+        // GET: api/Usuarios/nome/Usuario
+        [HttpGet("nome/{nome}")]
+        public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuarioByNome(string nome)
+        {
+            return await _context.Usuarios
+                .Where(u => 
+                    EF.Functions.Like(u.Nome, String.Format("%{0}%", nome)) 
+                    || 
+                    EF.Functions.Like(u.Sobrenome, String.Format("%{0}%", nome))
+                )
+                .ToListAsync();
+        }
+
+        // PUT: api/Usuarios/id/5
+        [HttpPut("id/{id}")]
         public async Task<IActionResult> PutUsuario(int id, Usuario usuario)
         {
             if (id != usuario.ID)
@@ -89,8 +116,8 @@ namespace Observe.Controllers
             return CreatedAtAction("GetUsuario", new { id = usuario.ID }, usuario);
         }
 
-        // DELETE: api/Usuarios/5
-        [HttpDelete("{id}")]
+        // DELETE: api/Usuarios/id/5
+        [HttpDelete("id/{id}")]
         public async Task<ActionResult<Usuario>> DeleteUsuario(int id)
         {
             var usuario = await _context.Usuarios.FindAsync(id);
