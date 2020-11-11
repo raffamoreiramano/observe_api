@@ -56,6 +56,24 @@ namespace Observe.Controllers
             return medico;
         }
 
+        // GET: api/Medicos/cid/xyz5
+        [HttpGet("cid/{cid}")]
+        public async Task<ActionResult<Medico>> GetMedicoByCid(string cid)
+        {
+            var medico = await _context.Medicos
+                .AsQueryable()
+                .Include(m => m.Usuario)
+                .Where(m => m.Usuario.CID == cid)
+                .SingleOrDefaultAsync();
+        
+            if (medico == null)
+            {
+                return NotFound();
+            }
+
+            return medico;
+        }
+
         // GET: api/Medicos/nome/Usuario
         [HttpGet("nome/{nome}")]
         public async Task<ActionResult<IEnumerable<Medico>>> GetMedicosByNome(string nome)

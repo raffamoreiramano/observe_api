@@ -68,6 +68,26 @@ namespace Observe.Controllers
             return paciente;
         }
 
+        // GET: api/Pacientes/cid/xyz5
+        [HttpGet("cid/{cid}")]
+        public async Task<ActionResult<Paciente>> GetPacienteByCid(string cid)
+        {
+            var paciente = await 
+                _context
+                .Pacientes
+                .AsQueryable()
+                .Include(p => p.Usuario)
+                .Where(p => p.Usuario.CID == cid)
+                .SingleOrDefaultAsync();
+
+            if (paciente == null)
+            {
+                return NotFound();
+            }
+
+            return paciente;
+        }
+
         // GET: api/Pacientes/nome/Usuario
         [HttpGet("nome/{nome}")]
         public async Task<ActionResult<IEnumerable<Paciente>>> GetPacientesByNome(string nome)
