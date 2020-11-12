@@ -8,16 +8,16 @@ A API recebe e retorna dados no formato de texto JSON e aceita os métodos GET, 
 
 Os endereços das requisições devem constar em sua URI o prefixo `/api` seguido da rota do controlador, tipo do parâmetro e o parâmetro de consulta.
 
-ex.: http://localhost/api/usuarios - para listar a tabela de usuários;
+ex.: http:\//localhost/api/usuarios - para listar a tabela de usuários;
 
-ou http://localhost/api/usuarios/id/5 - para buscar um único usuário pelo seu `id`.
+ou http:\//localhost/api/usuarios/id/5 - para buscar um único usuário pelo seu `id`.
 
 A construção da API foi realizada em maior por parte utilizando a estratégia de migração de `código para banco de dados` do EF Core, e então "documentada"
 utilizando os pacotes Swagger e outras ferramentas diposníveis no pacote Swashbuckle.
 
 ### Controladores
 
-1. Usuarios:
+#### Usuarios:
 
 | Método | Rota                                | Descrição                                                                  |
 | ------ | ----------------------------------- | -------------------------------------------------------------------------: |
@@ -29,7 +29,8 @@ utilizando os pacotes Swagger e outras ferramentas diposníveis no pacote Swashb
 | PUT    | ...api/usuarios/id/5                | Atualizar usuário com id 5                                                 |
 | DELETE | ...api/usuarios/id/5                | Deletar usuário com id 5                                                   |
 
-2. Medicos:
+
+#### Medicos:
 
 | Método | Rota                                | Descrição                                                                  |
 | ------ | ----------------------------------- | -------------------------------------------------------------------------: |
@@ -44,7 +45,8 @@ utilizando os pacotes Swagger e outras ferramentas diposníveis no pacote Swashb
 | PUT    | ...api/medicos/id/5                 | Atualizar médico com id 5                                                  |
 | DELETE | ...api/medicos/id/5                 | Deletar médico com id 5                                                    |
 
-3. Pacientes:
+
+#### Pacientes:
 
 | Método | Rota                                | Descrição                                                                  |
 | ------ | ----------------------------------- | -------------------------------------------------------------------------: |
@@ -59,7 +61,8 @@ utilizando os pacotes Swagger e outras ferramentas diposníveis no pacote Swashb
 | PUT    | ...api/pacientes/id/5               | Atualizar paciente com id 5                                                |
 | DELETE | ...api/pacientes/id/5               | Deletar paciente com id 5                                                  |
 
-4. Receitas:
+
+#### Receitas:
 
 | Método | Rota                                | Descrição                                                                  |
 | ------ | ----------------------------------- | -------------------------------------------------------------------------: |
@@ -73,7 +76,7 @@ utilizando os pacotes Swagger e outras ferramentas diposníveis no pacote Swashb
 
 ### Modelos
 
-1. Usuario
+#### Usuario
 
 | Campo      | Tipo          | Descrição                                                                                    |
 | ---------- | ------------- | -------------------------------------------------------------------------------------------: |
@@ -82,7 +85,8 @@ utilizando os pacotes Swagger e outras ferramentas diposníveis no pacote Swashb
 | nome       | string        | Nome do usuário                                                                              |
 | sobrenome  | string        | Sobrenome do usuário                                                                         |
 
-2. Medico
+
+#### Medico
 
 | Campo      | Tipo          | Descrição                                                                                    |
 | ---------- | ------------- | -------------------------------------------------------------------------------------------: |
@@ -90,7 +94,8 @@ utilizando os pacotes Swagger e outras ferramentas diposníveis no pacote Swashb
 | uid        | int           | Chave estrangeira referente ao código de identificação do usuário                            |
 | crm        | string        | Código único do Conselho Regional de Medicina                                                |
 
-3. Paciente
+
+#### Paciente
 
 | Campo      | Tipo          | Descrição                                                                                    |
 | ---------- | ------------- | -------------------------------------------------------------------------------------------: |
@@ -101,7 +106,8 @@ utilizando os pacotes Swagger e outras ferramentas diposníveis no pacote Swashb
 | alergias   | List<string>  | Lista de alergias do paciente                                                                |
 | remedios   | List<string>  | Lista de remédios que o paciente já toma                                                     |
 
-4. Receita
+
+#### Receita
 
 | Campo      | Tipo          | Descrição                                                                                    |
 | ---------- | ------------- | -------------------------------------------------------------------------------------------: |
@@ -110,7 +116,8 @@ utilizando os pacotes Swagger e outras ferramentas diposníveis no pacote Swashb
 | pid        | int           | Chave estrangeira referente ao código de identificação do paciente                           |
 | remedios   | List<Remedio> | Lista de remédios e suas quantias, medidas e horários quais o paciente deverá tomar          |
 
-5. Remedio
+
+#### Remedio
 
 | Campo      | Tipo          | Descrição                                                                                    |
 | ---------- | ------------- | -------------------------------------------------------------------------------------------: |
@@ -124,6 +131,7 @@ utilizando os pacotes Swagger e outras ferramentas diposníveis no pacote Swashb
 
 * ASP.NET Core 3.1
 * Entity Framework Core 3.1
+* Swagger 2.0
 * SQL Server 2019
 
 
