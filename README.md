@@ -115,7 +115,7 @@ utilizando os pacotes Swagger e outras ferramentas diposníveis no pacote Swashb
 | Campo      | Tipo          | Descrição                                                                                    |
 | ---------- | ------------- | -------------------------------------------------------------------------------------------: |
 | nome       | string        | Nome do remédio                                                                              |
-| medida     | int           | Tipo de medida do remédio, ex.: "ml" ou "unidade"                                            |
+| medida     | string        | Tipo de medida do remédio, ex.: "ml" ou "unidade"                                            |
 | quantia    | double        | Quantia em termos da medida definida, ex.: 10.0 (ml)                                         |
 | horario    | string        | Hora sugerida em que o paciente deve tomar o remédio                                         |
 
