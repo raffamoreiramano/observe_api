@@ -8,9 +8,9 @@ A API recebe e retorna dados no formato de texto JSON e aceita os métodos GET, 
 
 Os endereços das requisições devem constar em sua URI o prefixo `/api` seguido da rota do controlador, tipo do parâmetro e o parâmetro de consulta.
 
-ex.: http://localhost/api/usuarios - para listar a tabela de usuários;
+ex.: http:\//localhost/api/usuarios - para listar a tabela de usuários;
 
-ou http://localhost/api/usuarios/id/5 - para buscar um único usuário pelo seu `id`.
+ou http:\//localhost/api/usuarios/id/5 - para buscar um único usuário pelo seu `id`.
 
 A construção da API foi realizada em maior por parte utilizando a estratégia de migração de `código para banco de dados` do EF Core, e então "documentada"
 utilizando os pacotes Swagger e outras ferramentas diposníveis no pacote Swashbuckle.
@@ -124,6 +124,7 @@ utilizando os pacotes Swagger e outras ferramentas diposníveis no pacote Swashb
 
 * ASP.NET Core 3.1
 * Entity Framework Core 3.1
+* Swagger 2.0
 * SQL Server 2019
 
 
