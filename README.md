@@ -29,6 +29,7 @@ utilizando os pacotes Swagger e outras ferramentas diposníveis no pacote Swashb
 | PUT    | ...api/usuarios/id/5                | Atualizar usuário com id 5                                                 |
 | DELETE | ...api/usuarios/id/5                | Deletar usuário com id 5                                                   |
 
+
 #### Medicos:
 
 | Método | Rota                                | Descrição                                                                  |
@@ -43,6 +44,7 @@ utilizando os pacotes Swagger e outras ferramentas diposníveis no pacote Swashb
 | POST   | ...api/medicos/                     | Inserir novo médico                                                        |
 | PUT    | ...api/medicos/id/5                 | Atualizar médico com id 5                                                  |
 | DELETE | ...api/medicos/id/5                 | Deletar médico com id 5                                                    |
+
 
 #### Pacientes:
 
@@ -59,6 +61,7 @@ utilizando os pacotes Swagger e outras ferramentas diposníveis no pacote Swashb
 | PUT    | ...api/pacientes/id/5               | Atualizar paciente com id 5                                                |
 | DELETE | ...api/pacientes/id/5               | Deletar paciente com id 5                                                  |
 
+
 #### Receitas:
 
 | Método | Rota                                | Descrição                                                                  |
@@ -69,7 +72,6 @@ utilizando os pacotes Swagger e outras ferramentas diposníveis no pacote Swashb
 | POST   | ...api/receitas/                    | Inserir nova receita                                                       |
 | PUT    | ...api/receitas/id/5                | Atualizar receita com id 5                                                 |
 | DELETE | ...api/receitas/id/5                | Deletar receita com id 5                                                   |
-
 
 
 ### Modelos
@@ -83,6 +85,7 @@ utilizando os pacotes Swagger e outras ferramentas diposníveis no pacote Swashb
 | nome       | string        | Nome do usuário                                                                              |
 | sobrenome  | string        | Sobrenome do usuário                                                                         |
 
+
 #### Medico
 
 | Campo      | Tipo          | Descrição                                                                                    |
@@ -90,6 +93,7 @@ utilizando os pacotes Swagger e outras ferramentas diposníveis no pacote Swashb
 | id         | int           | Código de identificação do médico na tabela                                                  |
 | uid        | int           | Chave estrangeira referente ao código de identificação do usuário                            |
 | crm        | string        | Código único do Conselho Regional de Medicina                                                |
+
 
 #### Paciente
 
@@ -102,6 +106,7 @@ utilizando os pacotes Swagger e outras ferramentas diposníveis no pacote Swashb
 | alergias   | List<string>  | Lista de alergias do paciente                                                                |
 | remedios   | List<string>  | Lista de remédios que o paciente já toma                                                     |
 
+
 #### Receita
 
 | Campo      | Tipo          | Descrição                                                                                    |
@@ -110,6 +115,7 @@ utilizando os pacotes Swagger e outras ferramentas diposníveis no pacote Swashb
 | mid        | int           | Chave estrangeira referente ao código de identificação do médico                             |
 | pid        | int           | Chave estrangeira referente ao código de identificação do paciente                           |
 | remedios   | List<Remedio> | Lista de remédios e suas quantias, medidas e horários quais o paciente deverá tomar          |
+
 
 #### Remedio
 
