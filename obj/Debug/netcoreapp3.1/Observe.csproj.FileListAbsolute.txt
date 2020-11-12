@@ -155,5 +155,11 @@ C:\Users\User\Desktop\vs_projects\Observe\bin\Debug\netcoreapp3.1\zh-Hant\Micros
 C:\Users\User\Desktop\vs_projects\Observe\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
 C:\Users\User\Desktop\vs_projects\Observe\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\User\Desktop\vs_projects\Observe\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+C:\Users\User\Desktop\vs_projects\Observe\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
+C:\Users\User\Desktop\vs_projects\Observe\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\User\Desktop\vs_projects\Observe\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\User\Desktop\vs_projects\Observe\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\User\Desktop\vs_projects\Observe\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Annotations.dll
 C:\Users\User\Desktop\vs_projects\Observe\obj\Debug\netcoreapp3.1\Observe.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\vs_projects\Observe\obj\Debug\netcoreapp3.1\Observe.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\User\Desktop\vs_projects\Observe\obj\Debug\netcoreapp3.1\Observe.MvcApplicationPartsAssemblyInfo.cache
