@@ -71,6 +71,7 @@ utilizando os pacotes Swagger e outras ferramentas diposníveis no pacote Swashb
 | DELETE | ...api/receitas/id/5                | Deletar receita com id 5                                                   |
 
 
+
 ### Modelos
 
 #### Usuario
