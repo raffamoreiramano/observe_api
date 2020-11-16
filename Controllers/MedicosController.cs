@@ -126,13 +126,6 @@ namespace Observe.Controllers
         [HttpPut("id/{id}")]
         public async Task<IActionResult> PutMedico(int id, Medico medico)
         {
-            var usuario = await _context.Medicos.AsQueryable().Where(m => m.UID == medico.UID).SingleOrDefaultAsync();
-
-            if (usuario != null)
-            {
-                return Conflict(new { title = "Conflict", message = $"A record with the same UID already exists." });
-            }
-
             if (id != medico.ID)
             {
                 return BadRequest();
